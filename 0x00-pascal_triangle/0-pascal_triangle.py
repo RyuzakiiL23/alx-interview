@@ -1,6 +1,9 @@
+#!/usr/bin/python3
+"""Pascal's triangle"""
+
 def pascal_triangle(n):
     """
-    Pascal's Triangle.
+    Returns pascal trianle
     """
     if n <= 0:
         return []
