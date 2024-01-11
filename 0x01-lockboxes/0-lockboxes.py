@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''LockBoxes interview'''
 
+
 def canUnlockAll(boxes):
     '''Determinate if all boxes are openable'''
     if not boxes:
@@ -18,6 +19,7 @@ def canUnlockAll(boxes):
                 keys.add(key)
 
     return len(opened) == len(boxes)
+
 
 if __name__ == "__main__":
     boxes1 = [[1], [2], [3], [4], []]
