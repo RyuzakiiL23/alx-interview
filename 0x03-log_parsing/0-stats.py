@@ -6,7 +6,7 @@ import sys
 
 
 def printsts(dic, size):
-    """ WWPrints information """
+    """Prints information """
     print("File size: {:d}".format(size))
     for i in sorted(dic.keys()):
         if dic[i] != 0:
