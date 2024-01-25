@@ -1,42 +1,45 @@
 #!/usr/bin/python3
+
+"""Script that reads stdin line by line and computes metrics"""
+
 import sys
 
 
-def print_stats(total_size, status_codes):
-    print(f"File size: {total_size}")
-    for code in sorted(status_codes):
-        print(f"{code}: {status_codes[code]}")
+def printsts(dic, size):
+    """ WWPrints information """
+    print("File size: {:d}".format(size))
+    for i in sorted(dic.keys()):
+        if dic[i] != 0:
+            print("{}: {:d}".format(i, dic[i]))
 
 
-def main():
-    total_size = 0
-    status_codes = {'200': 0, '301': 0, '400': 0, '401': 0,
-                    '403': 0, '404': 0, '405': 0, '500': 0}
-    line_count = 0
+sts = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0,
+       "404": 0, "405": 0, "500": 0}
 
-    try:
-        for line in sys.stdin:
-            tokens = line.split()
-            if len(tokens) >= 9:
-                status_code = tokens[-2]
-                file_size = int(tokens[-1])
+count = 0
+size = 0
 
-                if status_code in status_codes:
-                    status_codes[status_code] += 1
+try:
+    for line in sys.stdin:
+        if count != 0 and count % 10 == 0:
+            printsts(sts, size)
 
-                total_size += file_size
-                line_count += 1
+        stlist = line.split()
+        count += 1
 
-                if line_count % 10 == 0:
-                    print_stats(total_size, status_codes)
+        try:
+            size += int(stlist[-1])
+        except:
+            pass
 
-    except KeyboardInterrupt:
-        print_stats(total_size, status_codes)
-        sys.exit(0)
-
-    finally:
-        print_stats(total_size, status_codes)
+        try:
+            if stlist[-2] in sts:
+                sts[stlist[-2]] += 1
+        except:
+            pass
+    printsts(sts, size)
 
 
-if __name__ == "__main__":
-    main()
+except KeyboardInterrupt:
+    printsts(sts, size)
+    raise
